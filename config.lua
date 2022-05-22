@@ -11,6 +11,7 @@ an executable
 -- general
 lvim.log.level = "warn"
 lvim.format_on_save = true
+vim.g.vscode_style = "dark"
 lvim.colorscheme = "onedarker"
 -- to disable icons and use a minimalist setup, uncomment the following
 -- lvim.use_icons = false
@@ -44,15 +45,15 @@ lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
 
 -- Use which-key to add extra bindings with the leader-key prefix
 -- lvim.builtin.which_key.mappings["P"] = { "<cmd>Telescope projects<CR>", "Projects" }
--- lvim.builtin.which_key.mappings["t"] = {
---   name = "+Trouble",
---   r = { "<cmd>Trouble lsp_references<cr>", "References" },
---   f = { "<cmd>Trouble lsp_definitions<cr>", "Definitions" },
---   d = { "<cmd>Trouble document_diagnostics<cr>", "Diagnostics" },
---   q = { "<cmd>Trouble quickfix<cr>", "QuickFix" },
---   l = { "<cmd>Trouble loclist<cr>", "LocationList" },
---   w = { "<cmd>Trouble workspace_diagnostics<cr>", "Wordspace Diagnostics" },
--- }
+lvim.builtin.which_key.mappings["t"] = {
+        name = "+Trouble",
+        r = { "<cmd>Trouble lsp_references<cr>", "References" },
+        f = { "<cmd>Trouble lsp_definitions<cr>", "Definitions" },
+        d = { "<cmd>Trouble document_diagnostics<cr>", "Diagnostics" },
+        q = { "<cmd>Trouble quickfix<cr>", "QuickFix" },
+        l = { "<cmd>Trouble loclist<cr>", "LocationList" },
+        w = { "<cmd>Trouble workspace_diagnostics<cr>", "Wordspace Diagnostics" },
+}
 
 -- TODO: User Config for predefined plugins
 -- After changing plugin config exit and reopen LunarVim, Run :PackerInstall :PackerCompile
@@ -82,6 +83,7 @@ lvim.builtin.treesitter.ensure_installed = {
 lvim.builtin.treesitter.ignore_install = { "haskell" }
 lvim.builtin.treesitter.highlight.enabled = true
 
+lvim.builtin.treesitter.autotag.enable = true
 -- generic LSP settings
 
 -- ---@usage disable automatic installation of servers
@@ -171,6 +173,28 @@ lvim.plugins = {
         {
                 "rktjmp/lush.nvim",
         },
+        {
+                "folke/trouble.nvim",
+                cmd = "TroubleToggle",
+        },
+        {
+                "norcalli/nvim-colorizer.lua",
+                config = function()
+                        require("colorizer").setup({ "*" }, {
+                                RGB = true, -- #RGB hex codes
+                                RRGGBB = true, -- #RRGGBB hex codes
+                                RRGGBBAA = true, -- #RRGGBBAA hex codes
+                                rgb_fn = true, -- CSS rgb() and rgba() functions
+                                hsl_fn = true, -- CSS hsl() and hsla() functions
+                                css = true, -- Enable all CSS features: rgb_fn, hsl_fn, names, RGB, RRGGBB
+                                css_fn = true, -- Enable all CSS *functions*: rgb_fn, hsl_fn
+                        })
+                end,
+        },
+        {
+                "Mofiqul/vscode.nvim"
+        }
+
 }
 
 lvim.builtin.treesitter.rainbow.enable = true
