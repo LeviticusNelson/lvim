@@ -6,6 +6,12 @@ Custom lvim config with apex lsp
 ```
   cd ~/.config && git clone https://github.com/LeviticusNelson/lvim.git
 ```
+- Enter (l)vim
+- Enter command:
+```
+  :PackerSync
+```
+- Exit vim and it should be good to go!
 
 ## Apex LSP Install
 - Open vim
