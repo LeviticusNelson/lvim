@@ -13,6 +13,7 @@ lvim.log.level = "warn"
 lvim.format_on_save = true
 vim.g.vscode_style = "dark"
 lvim.colorscheme = "onedarker"
+vim.o.guifont = "JetBrainsMono Nerd Font Mono"
 -- to disable icons and use a minimalist setup, uncomment the following
 -- lvim.use_icons = false
 
@@ -118,7 +119,7 @@ formatters.setup {
         -- { command = "isort", filetypes = { "python" } },
         {
                 -- each formatter accepts a list of options identical to https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md#Configuration
-                command = "prettierd",
+                command = "prettier",
                 ---@usage arguments to pass to the formatter
                 -- these cannot contain whitespaces, options such as `--line-width 80` become either `{'--line-width', '80'}` or `{'--line-width=80'}`
                 -- extra_args = { "--print-with", "100" },
@@ -202,6 +203,42 @@ lvim.plugins = {
                         vim.g.gitblame_enabled = 0
                 end,
         },
+        {
+                'wfxr/minimap.vim',
+                run = "cargo install --locked code-minimap",
+                -- cmd = {"Minimap", "MinimapClose", "MinimapToggle", "MinimapRefresh", "MinimapUpdateHighlight"},
+                config = function()
+                        vim.cmd("let g:minimap_width = 10")
+                        vim.cmd("let g:minimap_auto_start = 1")
+                        vim.cmd("let g:minimap_auto_start_win_enter = 1")
+                end,
+        },
+        {
+                "kevinhwang91/nvim-bqf",
+                event = { "BufRead", "BufNew" },
+                config = function()
+                        require("bqf").setup({
+                                auto_enable = true,
+                                preview = {
+                                        win_height = 12,
+                                        win_vheight = 12,
+                                        delay_syntax = 80,
+                                        border_chars = { "┃", "┃", "━", "━", "┏", "┓", "┗", "┛", "█" },
+                                },
+                                func_map = {
+                                        vsplit = "",
+                                        ptogglemode = "z,",
+                                        stoggleup = "",
+                                },
+                                filter = {
+                                        fzf = {
+                                                action_for = { ["ctrl-s"] = "split" },
+                                                extra_opts = { "--bind", "ctrl-o:toggle-all", "--prompt", "> " },
+                                        },
+                                },
+                        })
+                end,
+        },
 
 }
 
@@ -215,75 +252,3 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
         pattern = { "*.cls", "*.trigger" },
         command = "set filetype=apexcode",
 })
-
-local lspconfig = require "lspconfig"
-local configs   = require "lspconfig.configs"
-local servers   = require "nvim-lsp-installer.servers"
-local server    = require "nvim-lsp-installer.server"
-local path      = require "nvim-lsp-installer.core.path"
-local git       = require "nvim-lsp-installer.core.managers.git"
-
------------------------------------------------------------
--- Custom Salesforce Apex LSP Installer
------------------------------------------------------------
-
-local apex_lsp_name = "apex-lsp"
-
--- Add Apex to LSP Configs
-configs[apex_lsp_name] = {
-        default_config = {
-                filetypes = { "apexcode" },
-                root_dir = lspconfig.util.root_pattern "sfdx-project.json",
-        },
-}
-
-local root_dir = server.get_server_root_path(apex_lsp_name)
-
-local apex_lsp_server = server.Server:new {
-        name = apex_lsp_name,
-        root_dir = root_dir,
-        homepage = "https://developer.salesforce.com/tools/vscode/en/apex/language-server",
-        languages = { "apexcode" },
-        installer = function(ctx)
-                ctx.fs:mkdir "salesforcedx-vscode-git"
-                ctx:chdir("salesforcedx-vscode-git", function()
-                        git.clone({ "https://github.com/forcedotcom/salesforcedx-vscode", recursive = true })
-                end)
-                ctx.fs:rename(
-                        path.concat {
-                                "salesforcedx-vscode-git",
-                                "packages",
-                                "salesforcedx-vscode-apex",
-                                "out",
-                        },
-                        "out"
-                )
-                ctx.fs:rmrf "salesforcedx-vscode-git"
-        end,
-        default_options = {
-                cmd = {
-                        "java",
-                        "-cp",
-                        path.concat { root_dir, "out/apex-jorje-lsp.jar" },
-                        "-Ddebug.internal.errors=true",
-                        "apex.jorje.lsp.ApexLanguageServerLauncher",
-                },
-        },
-}
-
-servers.register(apex_lsp_server)
-
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-
--- Call setup
-for _, lsp in ipairs(servers) do
-        lspconfig[lsp].setup {
-                capabilities = capabilities,
-                flags = {
-                        -- default in neovim 0.7+
-                        debounce_text_changes = 150,
-                }
-        }
-end
-
-require("lvim.lsp.manager").setup("apex-lsp")
