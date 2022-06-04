@@ -1,21 +1,20 @@
 # lvim
-Custom lvim config with apex lsp
+
+Custom lvim config
 
 ## Install Instructions
+
 - Copy in command line:
+
 ```
-  cd ~/.config && git clone https://github.com/LeviticusNelson/lvim.git
+  cd ~/.config && rm -rf lvim && git clone https://github.com/LeviticusNelson/lvim.git
 ```
-- Enter (l)vim
+
+- Enter lvim (I made an alias `alias vim="lvim"` in my .zshrc file)
 - Enter command:
+
 ```
   :PackerSync
 ```
-- Exit vim and it should be good to go!
 
-## Apex LSP Install
-- Open vim
-- Enter command: 
-```
-  :LspInstall apex-lsp
-```
+- Exit vim and it should be good to go!
