@@ -47,13 +47,13 @@ lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
 -- Use which-key to add extra bindings with the leader-key prefix
 -- lvim.builtin.which_key.mappings["P"] = { "<cmd>Telescope projects<CR>", "Projects" }
 lvim.builtin.which_key.mappings["t"] = {
-  name = "+Trouble",
-  r = { "<cmd>Trouble lsp_references<cr>", "References" },
-  f = { "<cmd>Trouble lsp_definitions<cr>", "Definitions" },
-  d = { "<cmd>Trouble document_diagnostics<cr>", "Diagnostics" },
-  q = { "<cmd>Trouble quickfix<cr>", "QuickFix" },
-  l = { "<cmd>Trouble loclist<cr>", "LocationList" },
-  w = { "<cmd>Trouble workspace_diagnostics<cr>", "Wordspace Diagnostics" },
+        name = "+Trouble",
+        r = { "<cmd>Trouble lsp_references<cr>", "References" },
+        f = { "<cmd>Trouble lsp_definitions<cr>", "Definitions" },
+        d = { "<cmd>Trouble document_diagnostics<cr>", "Diagnostics" },
+        q = { "<cmd>Trouble quickfix<cr>", "QuickFix" },
+        l = { "<cmd>Trouble loclist<cr>", "LocationList" },
+        w = { "<cmd>Trouble workspace_diagnostics<cr>", "Wordspace Diagnostics" },
 }
 
 -- TODO: User Config for predefined plugins
@@ -62,23 +62,22 @@ lvim.builtin.alpha.active = true
 lvim.builtin.alpha.mode = "dashboard"
 lvim.builtin.notify.active = true
 lvim.builtin.terminal.active = true
-lvim.builtin.nvimtree.setup.view.side = "left"
--- lvim.builtin.nvimtree.show_icons.git = 0
+-- lvim.builtin.nvimtree.setup.view.side = "left"
 
 -- if you don't want all the parsers change this to a table of the ones you want
 lvim.builtin.treesitter.ensure_installed = {
-  "bash",
-  "c",
-  "javascript",
-  "json",
-  "lua",
-  "python",
-  "typescript",
-  "tsx",
-  "css",
-  "rust",
-  "java",
-  "yaml",
+        "bash",
+        "c",
+        "javascript",
+        "json",
+        "lua",
+        "python",
+        "typescript",
+        "tsx",
+        "css",
+        "rust",
+        "java",
+        "yaml",
 }
 
 lvim.builtin.treesitter.ignore_install = { "haskell" }
@@ -115,138 +114,139 @@ lvim.builtin.treesitter.autotag.enable = true
 -- -- set a formatter, this will override the language server formatting capabilities (if it exists)
 local formatters = require "lvim.lsp.null-ls.formatters"
 formatters.setup {
-  -- { command = "black", filetypes = { "python" } },
-  -- { command = "isort", filetypes = { "python" } },
-  {
-    -- each formatter accepts a list of options identical to https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md#Configuration
-    command = "prettier",
-    ---@usage arguments to pass to the formatter
-    -- these cannot contain whitespaces, options such as `--line-width 80` become either `{'--line-width', '80'}` or `{'--line-width=80'}`
-    -- extra_args = { "--tab-width=4" },
-    ---@usage specify which filetypes to enable. By default a providers will attach to all the filetypes it supports.
-    -- filetypes = { "typescript", "typescriptreact", "javascript", "html" },
-  },
+        -- { command = "black", filetypes = { "python" } },
+        -- { command = "isort", filetypes = { "python" } },
+        {
+                -- each formatter accepts a list of options identical to https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md#Configuration
+                command = "prettier",
+                ---@usage arguments to pass to the formatter
+                -- these cannot contain whitespaces, options such as `--line-width 80` become either `{'--line-width', '80'}` or `{'--line-width=80'}`
+                -- extra_args = { "--tab-width=4" },
+                ---@usage specify which filetypes to enable. By default a providers will attach to all the filetypes it supports.
+                filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact", "vue", "css", "scss",
+                        "less", "html", "json", "jsonc", "yaml", "markdown", "graphql", "handlebars", "solidity",
+                        "apexcode" }
+        },
 }
 
 -- -- -- set additional linters
--- local linters = require "lvim.lsp.null-ls.linters"
--- linters.setup {
---   { command = "flake8", filetypes = { "python" } },
---   {
---     -- each linter accepts a list of options identical to https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md#Configuration
---     command = "shellcheck",
---     ---@usage arguments to pass to the formatter
---     -- these cannot contain whitespaces, options such as `--line-width 80` become either `{'--line-width', '80'}` or `{'--line-width=80'}`
---     extra_args = { "--severity", "warning" },
---   },
---   {
---     command = "codespell",
---     ---@usage specify which filetypes to enable. By default a providers will attach to all the filetypes it supports.
---     filetypes = { "javascript", "python" },
---   },
--- }
+local linters = require "lvim.lsp.null-ls.linters"
+linters.setup {
+        { command = "flake8", filetypes = { "python" } },
+        {
+                -- each linter accepts a list of options identical to https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md#Configuration
+                command = "shellcheck",
+                ---@usage arguments to pass to the formatter
+                -- these cannot contain whitespaces, options such as `--line-width 80` become either `{'--line-width', '80'}` or `{'--line-width=80'}`
+                extra_args = { "--severity", "warning" },
+        },
+        {
+                command = "codespell",
+                ---@usage specify which filetypes to enable. By default a providers will attach to all the filetypes it supports.
+                filetypes = { "javascript", "python" },
+        },
+        {
+                command = "solhint"
+        }
+}
 
 -- Additional Plugins
 lvim.plugins = {
-  { "folke/tokyonight.nvim" },
-  {
-    "folke/trouble.nvim",
-    cmd = "TroubleToggle",
-  },
-  {
-    "windwp/nvim-ts-autotag",
-    event = "InsertEnter",
-    config = function()
-      require("nvim-ts-autotag").setup()
-    end,
-  },
-  {
-    "sindrets/diffview.nvim",
-    event = "BufRead",
-  },
-  {
-    "p00f/nvim-ts-rainbow",
-  },
-  {
-    "folke/lsp-colors.nvim",
-    event = "BufRead",
-  },
-  {
-    "rktjmp/lush.nvim",
-  },
-  {
-    "folke/trouble.nvim",
-    cmd = "TroubleToggle",
-  },
-  {
-    "norcalli/nvim-colorizer.lua",
-    config = function()
-      require("colorizer").setup({ "*" }, {
-        RGB = true, -- #RGB hex codes
-        RRGGBB = true, -- #RRGGBB hex codes
-        RRGGBBAA = true, -- #RRGGBBAA hex codes
-        rgb_fn = true, -- CSS rgb() and rgba() functions
-        hsl_fn = true, -- CSS hsl() and hsla() functions
-        css = true, -- Enable all CSS features: rgb_fn, hsl_fn, names, RGB, RRGGBB
-        css_fn = true, -- Enable all CSS *functions*: rgb_fn, hsl_fn
-      })
-    end,
-  },
-  {
-    "Mofiqul/vscode.nvim"
-  },
-  {
-    "f-person/git-blame.nvim",
-    event = "BufRead",
-    config = function()
-      vim.cmd "highlight default link gitblame SpecialComment"
-      vim.g.gitblame_enabled = 0
-    end,
-  },
-  {
-    "kevinhwang91/nvim-bqf",
-    event = { "BufRead", "BufNew" },
-    config = function()
-      require("bqf").setup({
-        auto_enable = true,
-        preview = {
-          win_height = 12,
-          win_vheight = 12,
-          delay_syntax = 80,
-          border_chars = { "┃", "┃", "━", "━", "┏", "┓", "┗", "┛", "█" },
+        { "folke/tokyonight.nvim" },
+        {
+                "windwp/nvim-ts-autotag",
+                event = "InsertEnter",
+                config = function()
+                        require("nvim-ts-autotag").setup()
+                end,
         },
-        func_map = {
-          vsplit = "",
-          ptogglemode = "z,",
-          stoggleup = "",
+        {
+                "sindrets/diffview.nvim",
+                event = "BufRead",
         },
-        filter = {
-          fzf = {
-            action_for = { ["ctrl-s"] = "split" },
-            extra_opts = { "--bind", "ctrl-o:toggle-all", "--prompt", "> " },
-          },
+        {
+                "p00f/nvim-ts-rainbow",
         },
-      })
-    end,
-  },
+        {
+                "folke/lsp-colors.nvim",
+                event = "BufRead",
+        },
+        {
+                "rktjmp/lush.nvim",
+        },
+        {
+                "folke/trouble.nvim",
+                cmd = "TroubleToggle",
+        },
+        {
+                "norcalli/nvim-colorizer.lua",
+                config = function()
+                        require("colorizer").setup({ "*" }, {
+                                RGB = true, -- #RGB hex codes
+                                RRGGBB = true, -- #RRGGBB hex codes
+                                RRGGBBAA = true, -- #RRGGBBAA hex codes
+                                rgb_fn = true, -- CSS rgb() and rgba() functions
+                                hsl_fn = true, -- CSS hsl() and hsla() functions
+                                css = true, -- Enable all CSS features: rgb_fn, hsl_fn, names, RGB, RRGGBB
+                                css_fn = true, -- Enable all CSS *functions*: rgb_fn, hsl_fn
+                        })
+                end,
+        },
+        {
+                "Mofiqul/vscode.nvim"
+        },
+        {
+                "f-person/git-blame.nvim",
+                event = "BufRead",
+                config = function()
+                        vim.cmd "highlight default link gitblame SpecialComment"
+                        vim.g.gitblame_enabled = 0
+                end,
+        },
+        {
+                "kevinhwang91/nvim-bqf",
+                event = { "BufRead", "BufNew" },
+                config = function()
+                        require("bqf").setup({
+                                auto_enable = true,
+                                preview = {
+                                        win_height = 12,
+                                        win_vheight = 12,
+                                        delay_syntax = 80,
+                                        border_chars = { "┃", "┃", "━", "━", "┏", "┓", "┗", "┛", "█" },
+                                },
+                                func_map = {
+                                        vsplit = "",
+                                        ptogglemode = "z,",
+                                        stoggleup = "",
+                                },
+                                filter = {
+                                        fzf = {
+                                                action_for = { ["ctrl-s"] = "split" },
+                                                extra_opts = { "--bind", "ctrl-o:toggle-all", "--prompt", "> " },
+                                        },
+                                },
+                        })
+                end,
+        },
 
-  {
-    "iamcco/markdown-preview.nvim",
-    run = "cd app && npm install",
-    ft = "markdown",
-    config = function()
-      vim.g.mkdp_auto_start = 1
-    end,
-  },
+        {
+                "iamcco/markdown-preview.nvim",
+                run = "cd app && npm install",
+                ft = "markdown",
+                config = function()
+                        vim.g.mkdp_auto_start = 1
+                end,
+        },
 }
 
 lvim.builtin.treesitter.rainbow.enable = true
 
 vim.api.nvim_create_autocmd("BufWinEnter", {
-  pattern = "*.lua",
-  command = "setlocal ts=8 sw=8",
+        pattern = "*.lua",
+        command = "setlocal ts=8 sw=8",
 })
 vim.api.nvim_create_autocmd("BufWinEnter", {
-  pattern = { "*.cls", "*.trigger" },
-  command = "set filetype=apexcode",
+        pattern = { "*.cls", "*.trigger" },
+        command = "set filetype=apexcode",
 })
