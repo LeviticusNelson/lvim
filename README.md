@@ -18,3 +18,4 @@ Custom lvim config
   ```
 
 - Exit vim and it should be good to go!
+- Thanks for using!
