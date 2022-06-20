@@ -38,6 +38,7 @@ lvim.builtin.alpha.dashboard.section.header.val = {
 
 
 }
+lvim.builtin.alpha.dashboard.section.footer.val = "leviticusnelson.com"
 
 -- keymappings [view all the defaults by pressing <leader>Lk]
 lvim.leader = "space"
