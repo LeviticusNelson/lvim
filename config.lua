@@ -149,6 +149,11 @@ formatters.setup {
                         "less", "html", "json", "jsonc", "yaml", "markdown", "graphql", "handlebars", "solidity",
                         "apexcode" }
         },
+        {
+                command = "phpcsfixer",
+                filetypes = { "php" },
+                extra_args = { "--no-interaction", "--quiet", "fix", "$FILENAME" }
+        }
 }
 
 -- -- -- set additional linters
