@@ -16,6 +16,28 @@ lvim.colorscheme = "onedarker"
 vim.o.guifont = "JetBrainsMono Nerd Font Mono"
 -- to disable icons and use a minimalist setup, uncomment the following
 -- lvim.use_icons = false
+vim.opt.titlestring = '👾'
+vim.o.cmdheight = 1
+lvim.builtin.alpha.dashboard.section.header.val = {
+
+
+
+        [[ __       ______   __   __ __   ______  __   ______   __  __   ______     ]],
+        [[/\ \     /\  ___\ /\ \ / //\ \ /\__  _\/\ \ /\  ___\ /\ \/\ \ /\  ___\    ]],
+        [[\ \ \____\ \  __\ \ \ \'/ \ \ \\/_/\ \/\ \ \\ \ \____\ \ \_\ \\ \___  \   ]],
+        [[ \ \_____\\ \_____\\ \__|  \ \_\  \ \_\ \ \_\\ \_____\\ \_____\\/\_____\  ]],
+        [[  \/_____/ \/_____/ \/_/    \/_/   \/_/  \/_/ \/_____/ \/_____/ \/_____/  ]],
+        [[                                                                          ]],
+        [[          __   __   ______   __       ______   ______   __   __           ]],
+        [[         /\ "-.\ \ /\  ___\ /\ \     /\  ___\ /\  __ \ /\ "-.\ \          ]],
+        [[         \ \ \-.  \\ \  __\ \ \ \____\ \___  \\ \ \/\ \\ \ \-.  \         ]],
+        [[          \ \_\\"\_\\ \_____\\ \_____\\/\_____\\ \_____\\ \_\\"\_\        ]],
+        [[           \/_/ \/_/ \/_____/ \/_____/ \/_____/ \/_____/ \/_/ \/_/        ]],
+
+
+
+
+}
 
 -- keymappings [view all the defaults by pressing <leader>Lk]
 lvim.leader = "space"
