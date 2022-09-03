@@ -49,7 +49,8 @@ lvim.keys.normal_mode["<C-l>"] = ":lua require'nvim-tmux-navigation'.NvimTmuxNav
 lvim.keys.normal_mode["<C-\\>"] = ":lua require'nvim-tmux-navigation'.NvimTmuxNavigateLastActive()<cr>"
 lvim.keys.normal_mode["<C-Space>"] = ":lua require'nvim-tmux-navigation'.NvimTmuxNavigateNext()<cr>"
 
-lvim.keys.normal_mode["<C-p>"] = ":lua require'plenary.busted'<cr> :echo 'hello'<cr> <Plug>PlenaryTestFile <cr>"
+lvim.keys.normal_mode["H"] = ":BufferLineCyclePrev<cr>"
+lvim.keys.normal_mode["L"] = ":BufferLineCycleNext<cr>"
 
 -- Change Telescope navigation to use j and k for navigation and n and p for history in both input and normal mode.
 -- we use protected-mode (pcall) just in case the plugin wasn't loaded yet.
