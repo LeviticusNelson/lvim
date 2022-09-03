@@ -49,6 +49,8 @@ lvim.keys.normal_mode["<C-l>"] = ":lua require'nvim-tmux-navigation'.NvimTmuxNav
 lvim.keys.normal_mode["<C-\\>"] = ":lua require'nvim-tmux-navigation'.NvimTmuxNavigateLastActive()<cr>"
 lvim.keys.normal_mode["<C-Space>"] = ":lua require'nvim-tmux-navigation'.NvimTmuxNavigateNext()<cr>"
 
+lvim.keys.normal_mode["<C-p>"] = ":lua require'plenary.busted'<cr> :echo 'hello'<cr> <Plug>PlenaryTestFile <cr>"
+
 -- Change Telescope navigation to use j and k for navigation and n and p for history in both input and normal mode.
 -- we use protected-mode (pcall) just in case the plugin wasn't loaded yet.
 -- local _, actions = pcall(require, "telescope.actions")
@@ -317,6 +319,25 @@ lvim.plugins = {
 		end,
 	},
 	{ "alexghergh/nvim-tmux-navigation" },
+	{ "leviticusnelson/sfdx.nvim" },
+	{
+		"mrjones2014/dash.nvim",
+		run = "make install",
+	},
+	{
+		"kylechui/nvim-surround",
+		config = function()
+			require("nvim-surround").setup({
+				-- Configuration here, or leave empty to use defaults
+			})
+		end,
+	},
+	{
+		"simrat39/rust-tools.nvim",
+		config = function()
+			require("rust-tools").setup({})
+		end,
+	},
 }
 
 lvim.builtin.treesitter.rainbow.enable = true
