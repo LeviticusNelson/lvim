@@ -88,6 +88,7 @@ lvim.builtin.alpha.active = true
 lvim.builtin.alpha.mode = "dashboard"
 lvim.builtin.notify.active = true
 lvim.builtin.terminal.active = true
+lvim.builtin.dap.active = true
 -- lvim.builtin.nvimtree.setup.view.side = "left"
 
 -- if you don't want all the parsers change this to a table of the ones you want
@@ -137,7 +138,7 @@ lvim.builtin.treesitter.autotag.enable = true
 --   buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
 -- end
 
--- -- set a formatter, this will override the language server formatting capabilities (if it exists)
+-- -- -- set a formatter, this will override the language server formatting capabilities (if it exists)
 local formatters = require("lvim.lsp.null-ls.formatters")
 formatters.setup({
 	-- { command = "black", filetypes = { "python" } },
@@ -321,10 +322,6 @@ lvim.plugins = {
 	},
 	{ "alexghergh/nvim-tmux-navigation" },
 	{ "leviticusnelson/sfdx.nvim" },
-	{
-		"mrjones2014/dash.nvim",
-		run = "make install",
-	},
 	{
 		"kylechui/nvim-surround",
 		config = function()
