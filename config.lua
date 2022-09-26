@@ -18,6 +18,10 @@ vim.o.guifont = "JetBrainsMono Nerd Font Mono"
 -- lvim.use_icons = false
 vim.opt.titlestring = "👾"
 vim.o.cmdheight = 1
+vim.wo.number = true
+vim.wo.relativenumber = true
+lvim.transparent_window = true
+
 lvim.builtin.alpha.dashboard.section.header.val = {
 
 	[[ __       ______   __   __ __   ______  __   ______   __  __   ______     ]],
@@ -171,11 +175,6 @@ formatters.setup({
 		},
 	},
 	{
-		command = "phpcsfixer",
-		filetypes = { "php" },
-		extra_args = { "--no-interaction", "--quiet", "fix", "$FILENAME" },
-	},
-	{
 		command = "shellharden",
 	},
 	{
@@ -207,7 +206,6 @@ linters.setup({
 
 -- Additional Plugins
 lvim.plugins = {
-	{ "folke/tokyonight.nvim" },
 	{
 		"windwp/nvim-ts-autotag",
 		event = "InsertEnter",
