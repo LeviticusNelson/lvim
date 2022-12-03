@@ -1,13 +1,3 @@
---[[
-lvim is the global options object
-
-Linters should be
-filled in as strings with either
-a global executable or a path to
-an executable
-]]
--- THESE ARE EXAMPLE CONFIGS FEEL FREE TO CHANGE TO WHATEVER YOU WANT
-
 -- general
 lvim.log.level = "warn"
 lvim.format_on_save = true
@@ -39,39 +29,10 @@ lvim.builtin.alpha.dashboard.section.footer.val = "leviticusnelson.com"
 
 -- keymappings [view all the defaults by pressing <leader>Lk]
 lvim.leader = "space"
--- add your own keymapping
 lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
--- unmap a default keymapping
--- lvim.keys.normal_mode["<C-Up>"] = false
--- edit a default keymapping
--- lvim.keys.normal_mode["<C-q>"] = ":q<cr>"
-lvim.keys.normal_mode["<C-h>"] = ":lua require'nvim-tmux-navigation'.NvimTmuxNavigateLeft()<cr>"
-lvim.keys.normal_mode["<C-j>"] = ":lua require'nvim-tmux-navigation'.NvimTmuxNavigateDown()<cr>"
-lvim.keys.normal_mode["<C-k>"] = ":lua require'nvim-tmux-navigation'.NvimTmuxNavigateUp()<cr>"
-lvim.keys.normal_mode["<C-l>"] = ":lua require'nvim-tmux-navigation'.NvimTmuxNavigateRight()<cr>"
-lvim.keys.normal_mode["<C-\\>"] = ":lua require'nvim-tmux-navigation'.NvimTmuxNavigateLastActive()<cr>"
-lvim.keys.normal_mode["<C-Space>"] = ":lua require'nvim-tmux-navigation'.NvimTmuxNavigateNext()<cr>"
 
 lvim.keys.normal_mode["H"] = ":BufferLineCyclePrev<cr>"
 lvim.keys.normal_mode["L"] = ":BufferLineCycleNext<cr>"
-
--- Change Telescope navigation to use j and k for navigation and n and p for history in both input and normal mode.
--- we use protected-mode (pcall) just in case the plugin wasn't loaded yet.
--- local _, actions = pcall(require, "telescope.actions")
--- lvim.builtin.telescope.defaults.mappings = {
---   -- for input mode
---   i = {
---     ["<C-j>"] = actions.move_selection_next,
---     ["<C-k>"] = actions.move_selection_previous,
---     ["<C-n>"] = actions.cycle_history_next,
---     ["<C-p>"] = actions.cycle_history_prev,
---   },
---   -- for normal mode
---   n = {
---     ["<C-j>"] = actions.move_selection_next,
---     ["<C-k>"] = actions.move_selection_previous,
---   },
--- }
 
 -- Use which-key to add extra bindings with the leader-key prefix
 -- lvim.builtin.which_key.mappings["P"] = { "<cmd>Telescope projects<CR>", "Projects" }
@@ -336,7 +297,22 @@ lvim.plugins = {
             })
         end,
     },
-    { "alexghergh/nvim-tmux-navigation" },
+    {
+        "alexghergh/nvim-tmux-navigation",
+        config = function()
+            require("nvim-tmux-navigation").setup({
+                disable_when_zoomed = true, -- defaults to false
+                keybindings = {
+                    left = "<C-h>",
+                    down = "<C-j>",
+                    up = "<C-k>",
+                    right = "<C-l>",
+                    last_active = "<C-\\>",
+                    next = "<C-Space>",
+                },
+            })
+        end,
+    },
     { "leviticusnelson/sfdx.nvim" },
     {
         "kylechui/nvim-surround",
