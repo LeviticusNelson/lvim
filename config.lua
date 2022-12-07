@@ -1,7 +1,7 @@
 -- general
 lvim.log.level = "warn"
 lvim.format_on_save = true
-lvim.colorscheme = "onedarker"
+lvim.colorscheme = "onedark"
 vim.o.guifont = "JetBrainsMono Nerd Font Mono"
 -- to disable icons and use a minimalist setup, uncomment the following
 -- lvim.use_icons = false
@@ -76,38 +76,9 @@ lvim.builtin.treesitter.autotag.enable = true
 lvim.builtin.treesitter.playground.enable = true
 lvim.builtin.treesitter.playground.persist_queries = true
 
--- generic LSP settings
-
--- ---@usage disable automatic installation of servers
--- lvim.lsp.automatic_servers_installation = false
-
--- ---configure a server manually. !!Requires `:LvimCacheReset` to take effect!!
--- ---see the full default list `:lua print(vim.inspect(lvim.lsp.automatic_configuration.skipped_servers))`
--- vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "pyright" })
--- local opts = {} -- check the lspconfig documentation for a list of all possible options
--- require("lvim.lsp.manager").setup("pyright", opts)
-
--- ---remove a server from the skipped list, e.g. eslint, or emmet_ls. !!Requires `:LvimCacheReset` to take effect!!
--- ---`:LvimInfo` lists which server(s) are skiipped for the current filetype
--- vim.tbl_map(function(server)
---   return server ~= "emmet_ls"
--- end, lvim.lsp.automatic_configuration.skipped_servers)
-
--- -- you can set a custom on_attach function that will be used for all the language servers
--- -- See <https://github.com/neovim/nvim-lspconfig#keybindings-and-completion>
--- lvim.lsp.on_attach_callback = function(client, bufnr)
---   local function buf_set_option(...)
---     vim.api.nvim_buf_set_option(bufnr, ...)
---   end
---   --Enable completion triggered by <c-x><c-o>
---   buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
--- end
-
 -- -- -- set a formatter, this will override the language server formatting capabilities (if it exists)
 local formatters = require("lvim.lsp.null-ls.formatters")
 formatters.setup({
-    -- { command = "black", filetypes = { "python" } },
-    -- { command = "isort", filetypes = { "python" } },
     {
         -- each formatter accepts a list of options identical to https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md#Configuration
         command = "prettier",
@@ -174,6 +145,23 @@ linters.setup({
 lvim.plugins = {
     {
         "nvim-treesitter/playground",
+    },
+    {
+        "navarasu/onedark.nvim",
+        config = function()
+            require("onedark").setup({
+                style = "darker",
+                term_colors = "true",
+                transparent = "true",
+                lualine = {
+                    transparent = true,
+                },
+                diagnostics = {
+                    darker = true,
+                    background = true,
+                },
+            })
+        end,
     },
     { "leviticusnelson/pg_go" },
     {
@@ -298,20 +286,7 @@ lvim.plugins = {
         end,
     },
     {
-        "alexghergh/nvim-tmux-navigation",
-        config = function()
-            require("nvim-tmux-navigation").setup({
-                disable_when_zoomed = true, -- defaults to false
-                keybindings = {
-                    left = "<C-h>",
-                    down = "<C-j>",
-                    up = "<C-k>",
-                    right = "<C-l>",
-                    last_active = "<C-\\>",
-                    next = "<C-Space>",
-                },
-            })
-        end,
+        "christoomey/vim-tmux-navigator",
     },
     { "leviticusnelson/sfdx.nvim" },
     {
