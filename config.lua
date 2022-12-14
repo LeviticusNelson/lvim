@@ -9,6 +9,7 @@ vim.o.cmdheight = 0
 vim.wo.number = true
 vim.wo.relativenumber = true
 lvim.transparent_window = true
+lvim.reload_config_on_save = true
 
 lvim.builtin.alpha.dashboard.section.header.val = {
 
@@ -55,23 +56,6 @@ lvim.builtin.terminal.active = true
 lvim.builtin.dap.active = true
 -- lvim.builtin.nvimtree.setup.view.side = "left"
 
--- if you don't want all the parsers change this to a table of the ones you want
-lvim.builtin.treesitter.ensure_installed = {
-    "bash",
-    "c",
-    "javascript",
-    "json",
-    "lua",
-    "python",
-    "typescript",
-    "tsx",
-    "css",
-    "rust",
-    "java",
-    "yaml",
-}
-
-lvim.builtin.treesitter.ignore_install = { "haskell" }
 lvim.builtin.treesitter.highlight.enabled = true
 lvim.builtin.treesitter.autotag.enable = true
 lvim.builtin.treesitter.playground.enable = true
